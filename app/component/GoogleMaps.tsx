@@ -35,7 +35,11 @@ export const GoogleMaps = ({
         mapId,
         styles: options,
         disableDefaultUI: true,
-        mapTypeControl: false,
+        mapTypeControl: true,
+        gestureHandling: "greedy",
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.DEFAULT,
+        },
       })
 
       const styleSelector = document.getElementById("style-selector")
