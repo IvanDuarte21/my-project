@@ -11,18 +11,21 @@ export const addSingleMarkers = ({
     const marker = new google.maps.Marker({
       position: { lat, lng },
       map,
-      title: "Hello World!",
       animation: google.maps.Animation.DROP,
       optimized: false,
       visible: true,
       clickable: true,
+      title: "Oiiiiiiiiiiiiiiiiiiiiiiiii",
     })
 
     marker.addListener("click", () => {
       infoWindow.close()
       infoWindow.setContent(marker.getTitle())
       infoWindow.open(marker.getMap(), marker)
+      console.log("oi")
     })
+
+    marker.addListener("click", () => {})
 
     return marker
   })
