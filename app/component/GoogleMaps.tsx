@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useRef, useState } from "react"
 import { addSingleMarkers } from "./markers"
 // import { addClusterMarkers, addSingleMarkers } from "./markers";
@@ -21,6 +22,7 @@ export const GoogleMaps = ({
   onClick?: (e: google.maps.MapMouseEvent) => void
 }) => {
   const ref = useRef<HTMLDivElement | null>(null)
+  const InfoWindow = new google.maps.InfoWindow()
 
   useEffect(() => {
     // Display the map
@@ -29,25 +31,28 @@ export const GoogleMaps = ({
         center: DEFAULT_CENTER,
         zoom: DEFAULT_ZOOM,
         mapId,
-        disableDefaultUI: true,
+        disableDefaultUI: false,
+        streetViewControl: false,
       })
 
       addSingleMarkers({ locations, map })
 
-      new window.google.maps.Marker({
-        position: { lat: -7.077195, lng: -41.489608 },
+      const newMarker = new window.google.maps.Marker({
+        position: { lat: -7.077151, lng: -41.489418 },
         map,
-        title: "PICOS PRO RACE",
         animation: google.maps.Animation.DROP,
         optimized: false,
         visible: true,
         clickable: true,
+        title: "OI",
       })
 
-      // Displays cluster markers or single markers on map when called
-      // useClusters
-      //   ? addClusterMarkers({ locations, map })
-      //   :
+      newMarker.addListener("click", () => {
+        InfoWindow.close()
+        InfoWindow.setContent(newMarker.getTitle())
+        InfoWindow.open(newMarker.getMap(), newMarker)
+        console.log("oi")
+      })
     }
   }, [ref, mapId, locations, useClusters])
 
