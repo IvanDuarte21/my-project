@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 var hoteis = [
   "Picos Hotel",
@@ -9,63 +9,146 @@ var hoteis = [
   "Hotel Pinheiro",
   "Pousada Guaribas",
   "Hotel Bentivi",
-  "Hotel Gadelha"
-];
+  "Hotel Gadelha",
+]
+
+var hoteisAndDescriptions = [
+  {
+    title: "Picos Hotel",
+    description: "",
+  },
+  {
+    title: "Hotel e Restaurante Pico 21",
+    description: `
+    Acomodações 
+    <br>    <br>
+    Duplo R$216    <br>
+    Triplo R$276    <br>
+    Quádruplo R$312    <br><br>`,
+  },
+  {
+    title: "HOTEL P DA SILVA",
+    description: `
+    Acomodações :
+    <br>    <br>
+    Duplo R$276    <br>
+    Triplo R$300    <br>
+    Quádruplo R$324    <br><br>
+    `,
+  },
+  {
+    title: "Center Hotel",
+    description: `
+    Acomodações 
+    <br>    <br>
+    Duplo R$168    <br>
+    Triplo R$252    <br>
+    Quádruplo R$336    <br><br>
+    `,
+  },
+  {
+    title: "Mauri Center Hotel",
+    description: `
+    Acomodações 
+    <br>    <br>
+    Individual R$180    <br>
+    Duplo R$240    <br>
+    Triplo R$300    <br><br>
+    `,
+  },
+  {
+    title: "Hotel Pinheiro",
+    description: `
+      Acomodações 
+      <br>    <br>
+      Duplo R$180    <br>
+      Triplo R$240    <br><br>
+    `,
+  },
+  {
+    title: "Pousada Guaribas",
+    description: `
+    Acomodações 
+    <br>    <br>
+    Individual R$118    <br>
+    Duplo R$190    <br>
+    Triplo R$255    <br>
+    Quádruplo R$295    <br><br>
+    `,
+  },
+  {
+    title: "Hotel Bentivi",
+    description: `
+    Acomodações 
+    <br>    <br>
+    Duplo R$264    <br>
+    Triplo R$336    <br>
+    Quádruplo R$384    <br><br>
+    `,
+  },
+  {
+    title: "Hotel Gadelha",
+    description: `
+    Acomodações 
+    <br>    <br>
+    Duplo R$216    <br>
+    Triplo R$324    <br>
+    Quádruplo R$384    <br><br>
+    `,
+  },
+]
 
 export const addSingleMarkers = ({
   locations,
   map,
 }: {
-  locations: ReadonlyArray<google.maps.LatLngLiteral>;
-  map: google.maps.Map | null | undefined;
+  locations: ReadonlyArray<google.maps.LatLngLiteral>
+  map: google.maps.Map | null | undefined
 }) =>
   locations.map(({ lat, lng }, index) => {
     const contentString =
       '<div id="content">' +
       '<div id="siteNotice">' +
       "</div>" +
-      '<h1 style="color: black; display: flex; justify-content: center; align-items: center; margin-bottom: 5px; font-family: Inter; font-weight: 600; font-size: 32px">' + `${hoteis[index]}` + '</h1>' +
-      '<div id="bodyContent" style="background-color: #F3F3F3 ; font-family: Inter; color: #616161; font-weigth: 400; font-size: 24px">' +
-      "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
-      "sandstone rock formation in the southern part of the " +
-      "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
-      "south west of the nearest large town, Alice Springs; 450&#160;km " +
-      "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
-      "features of the Uluru - Kata Tjuta National Park. Uluru is " +
-      "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
-      "Aboriginal people of the area. It has many springs, waterholes, " +
-      "rock caves and ancient paintings. Uluru is listed as a World " +
-      "Heritage Site.</p>" +
-      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-      "https://en.wikipedia.org/w/index.php?title=Uluru</a></p> " + 
-      '<p style="color: #E07B67; font-family: Montserrat">"(last visited June 22, 2009)."</p></p>' +
+      '<h1 style="color: black; display: flex; justify-content: center; align-items: center; margin-bottom: 5px; font-family: Inter; font-weight: 600; font-size: 32px">' +
+      `${hoteisAndDescriptions[index].title}` +
+      "</h1>" +
+      '<div id="bodyContent" style="background-color: #F3F3F3 ; font-family: Inter; color: #616161; font-weigth: 400; font-size: 24px; padding: 20px">' +
+      "<p>" +
+      `${hoteisAndDescriptions[index].description}` +
+      "</p>" +
+      '<p><a href="https://api.whatsapp.com/send?phone=5586981265732" style="display: inline-block; background-color: #25d366; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; border: none; cursor: pointer; transition: background-color 0.3s ease;" class="whatsapp-button" target="_blank">WhatsApp da Central de atendimento de Hospedagem do Picos Pro Race </a></p>' +
       "</div>" +
-      "</div>";
+      "</div>"
 
     const infoWindow = new google.maps.InfoWindow({
       content: contentString,
       ariaLabel: "",
-    });
+    })
 
     const marker = new google.maps.Marker({
       position: { lat, lng },
       map,
       title: "",
       animation: google.maps.Animation.DROP,
-      optimized: false,
+      optimized: true,
       visible: true,
       clickable: true,
-    });
+    })
+
+    map?.addListener("drag", () => {
+      infoWindow.close()
+    })
 
     marker.addListener("click", () => {
+      infoWindow.open(marker.getMap(), marker)
+
       infoWindow.open({
         anchor: marker,
         map,
-      });
-      infoWindow.close();
-      infoWindow.setContent(contentString);
-      infoWindow.open(marker.getMap(), marker);
-    });
+      })
+      infoWindow.setContent(contentString)
+    })
 
-    return marker;
-  });
+    return marker
+  })
