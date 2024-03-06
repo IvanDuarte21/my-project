@@ -134,6 +134,7 @@ export const addSingleMarkers = ({
       optimized: true,
       visible: true,
       clickable: true,
+      title: "Oiiiiiiiiiiiiiiiiiiiiiiiii",
     })
 
     map?.addListener("drag", () => {
@@ -149,6 +150,8 @@ export const addSingleMarkers = ({
       })
       infoWindow.setContent(contentString)
     })
+
+    marker.addListener("click", () => {})
 
     return marker
   })

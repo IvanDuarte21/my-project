@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useRef, useState } from "react"
 import { addSingleMarkers } from "./markers"
 // import { addClusterMarkers, addSingleMarkers } from "./markers";
@@ -23,6 +24,7 @@ export const GoogleMaps = ({
   options?: any
 }) => {
   const ref = useRef<HTMLDivElement | null>(null)
+  const InfoWindow = new google.maps.InfoWindow()
 
   useEffect(() => {
     // Display the map
