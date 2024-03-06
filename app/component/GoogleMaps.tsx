@@ -1,21 +1,26 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react"
+import { addSingleMarkers } from "./markers"
 // import { addClusterMarkers, addSingleMarkers } from "./markers";
 
-const DEFAULT_CENTER = { lat: -7.082329, lng: -41.474667 };
-const DEFAULT_ZOOM = 14;
+const DEFAULT_CENTER = { lat: -7.082329, lng: -41.474667 }
+const DEFAULT_ZOOM = 14
 
 export const GoogleMaps = ({
   locations,
   useClusters = true,
   mapId,
   className,
+  style,
+  onClick,
 }: {
-  locations: ReadonlyArray<google.maps.LatLngLiteral>;
-  useClusters?: boolean;
-  mapId?: string;
-  className?: string;
+  locations: ReadonlyArray<google.maps.LatLngLiteral>
+  useClusters?: boolean
+  mapId?: string
+  className?: string
+  style: { [key: string]: string }
+  onClick?: (e: google.maps.MapMouseEvent) => void
 }) => {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     // Display the map
@@ -24,27 +29,27 @@ export const GoogleMaps = ({
         center: DEFAULT_CENTER,
         zoom: DEFAULT_ZOOM,
         mapId,
-        disableDefaultUI: true
-      });
+        disableDefaultUI: true,
+      })
 
-      map.set('styles', [{
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [{ visibility: "off" }]
-      }]);
+      addSingleMarkers({ locations, map })
+
+      new window.google.maps.Marker({
+        position: { lat: -7.077195, lng: -41.489608 },
+        map,
+        title: "PICOS PRO RACE",
+        animation: google.maps.Animation.DROP,
+        optimized: false,
+        visible: true,
+        clickable: true,
+      })
 
       // Displays cluster markers or single markers on map when called
       // useClusters
       //   ? addClusterMarkers({ locations, map })
-      //   : addSingleMarkers({ locations, map });
+      //   :
     }
-  }, [ref, mapId, locations, useClusters]);
+  }, [ref, mapId, locations, useClusters])
 
-  return (
-    <div
-      className={className}
-      ref={ref}
-      style={{ width: "1000px", height: "700px" }}
-    />
-  );
-};
+  return <div className={className} ref={ref} style={style}></div>
+}
