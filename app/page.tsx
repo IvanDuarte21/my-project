@@ -10,7 +10,7 @@ const App = () => (
     <Layout>
       <GoogleMaps
         mapId="ffab8ac4c27f5bfd"
-        style={{ width: "100%", height: "700px" }}
+        style={{ width: "100%", height: "900px" }}
         locations={LOCATIONS}
         options={{
           styles: [
