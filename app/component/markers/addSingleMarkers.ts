@@ -15,7 +15,11 @@ var hoteis = [
 var hoteisAndDescriptions = [
   {
     title: "Picos Hotel",
-    description: "",
+    description: `
+    <br>    <br>
+    DISTÂNCIA DO PIAUÍ SHOPPING 3,7KM
+    <br>    <br>
+    `,
   },
   {
     title: "Hotel e Restaurante Pico 21",
@@ -24,16 +28,21 @@ var hoteisAndDescriptions = [
     <br>    <br>
     Duplo R$216    <br>
     Triplo R$276    <br>
-    Quádruplo R$312    <br><br>`,
+    Quádruplo R$312    <br><br>
+    DISTÂNCIA DO PIAUÍ SHOPPING 3,4KM
+    <br><br>
+    `,
   },
   {
-    title: "HOTEL P DA SILVA",
+    title: "Hotel P da Silva",
     description: `
     Acomodações :
     <br>    <br>
     Duplo R$276    <br>
     Triplo R$300    <br>
     Quádruplo R$324    <br><br>
+    DISTÂNCIA DO PIAUÍ SHOPPING 3KM
+    <br><br>
     `,
   },
   {
@@ -44,6 +53,8 @@ var hoteisAndDescriptions = [
     Duplo R$168    <br>
     Triplo R$252    <br>
     Quádruplo R$336    <br><br>
+    DISTÂNCIA DO PIAUÍ SHOPPING 3,2KM
+    <br><br>
     `,
   },
   {
@@ -54,6 +65,8 @@ var hoteisAndDescriptions = [
     Individual R$180    <br>
     Duplo R$240    <br>
     Triplo R$300    <br><br>
+    DISTÂNCIA DO PIAUÍ SHOPPING 3,4KM
+    <br><br>
     `,
   },
   {
@@ -63,6 +76,8 @@ var hoteisAndDescriptions = [
       <br>    <br>
       Duplo R$180    <br>
       Triplo R$240    <br><br>
+      DISTÂNCIA DO PIAUÍ SHOPPING 2,8KM
+      <br><br>
     `,
   },
   {
@@ -74,6 +89,8 @@ var hoteisAndDescriptions = [
     Duplo R$190    <br>
     Triplo R$255    <br>
     Quádruplo R$295    <br><br>
+    DISTÂNCIA DO PIAUÍ SHOPPING 2KM
+    <br><br>
     `,
   },
   {
@@ -84,6 +101,8 @@ var hoteisAndDescriptions = [
     Duplo R$264    <br>
     Triplo R$336    <br>
     Quádruplo R$384    <br><br>
+    DISTÂNCIA DO PIAUÍ SHOPPING 7,1KM
+    <br><br>
     `,
   },
   {
@@ -94,6 +113,8 @@ var hoteisAndDescriptions = [
     Duplo R$216    <br>
     Triplo R$324    <br>
     Quádruplo R$384    <br><br>
+    DISTÂNCIA DO PIAUÍ SHOPPING 3,1KM
+    <br><br>
     `,
   },
 ]
