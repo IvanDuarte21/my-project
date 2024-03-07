@@ -134,7 +134,6 @@ export const addSingleMarkers = ({
       optimized: true,
       visible: true,
       clickable: true,
-      title: "Oiiiiiiiiiiiiiiiiiiiiiiiii",
     })
 
     map?.addListener("drag", () => {
