@@ -41,7 +41,7 @@ var hoteisAndDescriptions = [
     Duplo R$276    <br>
     Triplo R$300    <br>
     Quádruplo R$324    <br><br>
-    DISTÂNCIA DO PIAUÍ SHOPPING 3KM
+    DISTÂNCIA DO PIAUÍ SHOPPING 5,4KM
     <br><br>
     `,
   },
