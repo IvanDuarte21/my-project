@@ -42,8 +42,6 @@ export const GoogleMaps = ({
         },
       })
 
-      const styleSelector = document.getElementById("style-selector")
-
       map.setOptions({ styles: options })
 
       addSingleMarkers({ locations, map })

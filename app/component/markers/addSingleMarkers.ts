@@ -1,23 +1,9 @@
-import styled from "styled-components"
-
-var hoteis = [
-  "Picos Hotel",
-  "Hotel e Restaurante Pico 21",
-  "HOTEL P DA SILVA",
-  "Center Hotel",
-  "Mauri Center Hotel",
-  "Hotel Pinheiro",
-  "Pousada Guaribas",
-  "Hotel Bentivi",
-  "Hotel Gadelha",
-]
-
 var hoteisAndDescriptions = [
   {
     title: "Picos Hotel",
     description: `
     <br>    <br>
-    DISTÂNCIA DO PIAUÍ SHOPPING 3,7KM
+   
     <br>    <br>
     `,
   },
@@ -28,9 +14,7 @@ var hoteisAndDescriptions = [
     <br>    <br>
     Duplo R$216    <br>
     Triplo R$276    <br>
-    Quádruplo R$312    <br><br>
-    DISTÂNCIA DO PIAUÍ SHOPPING 3,4KM
-    <br><br>
+    Quádruplo R$312    <br>
     `,
   },
   {
@@ -40,9 +24,7 @@ var hoteisAndDescriptions = [
     <br>    <br>
     Duplo R$276    <br>
     Triplo R$300    <br>
-    Quádruplo R$324    <br><br>
-    DISTÂNCIA DO PIAUÍ SHOPPING 5,4KM
-    <br><br>
+    Quádruplo R$324    <br>
     `,
   },
   {
@@ -52,9 +34,7 @@ var hoteisAndDescriptions = [
     <br>    <br>
     Duplo R$168    <br>
     Triplo R$252    <br>
-    Quádruplo R$336    <br><br>
-    DISTÂNCIA DO PIAUÍ SHOPPING 3,2KM
-    <br><br>
+    Quádruplo R$336    <br>
     `,
   },
   {
@@ -64,9 +44,7 @@ var hoteisAndDescriptions = [
     <br>    <br>
     Individual R$180    <br>
     Duplo R$240    <br>
-    Triplo R$300    <br><br>
-    DISTÂNCIA DO PIAUÍ SHOPPING 3,4KM
-    <br><br>
+    Triplo R$300    <br>
     `,
   },
   {
@@ -75,9 +53,7 @@ var hoteisAndDescriptions = [
       Acomodações 
       <br>    <br>
       Duplo R$180    <br>
-      Triplo R$240    <br><br>
-      DISTÂNCIA DO PIAUÍ SHOPPING 2,8KM
-      <br><br>
+      Triplo R$240    <br>
     `,
   },
   {
@@ -88,9 +64,7 @@ var hoteisAndDescriptions = [
     Individual R$118    <br>
     Duplo R$190    <br>
     Triplo R$255    <br>
-    Quádruplo R$295    <br><br>
-    DISTÂNCIA DO PIAUÍ SHOPPING 2KM
-    <br><br>
+    Quádruplo R$295    <br>
     `,
   },
   {
@@ -100,9 +74,7 @@ var hoteisAndDescriptions = [
     <br>    <br>
     Duplo R$264    <br>
     Triplo R$336    <br>
-    Quádruplo R$384    <br><br>
-    DISTÂNCIA DO PIAUÍ SHOPPING 7,1KM
-    <br><br>
+    Quádruplo R$384    <br>
     `,
   },
   {
@@ -112,9 +84,7 @@ var hoteisAndDescriptions = [
     <br>    <br>
     Duplo R$216    <br>
     Triplo R$324    <br>
-    Quádruplo R$384    <br><br>
-    DISTÂNCIA DO PIAUÍ SHOPPING 3,1KM
-    <br><br>
+    Quádruplo R$384    <br>
     `,
   },
 ]
@@ -147,14 +117,66 @@ export const addSingleMarkers = ({
       ariaLabel: "",
     })
 
-    const marker = new google.maps.Marker({
+    const priceTag = document.createElement("div")
+
+    priceTag.className = "price-tag"
+    priceTag.textContent = ""
+
+    const marker = new google.maps.marker.AdvancedMarkerView({
       position: { lat, lng },
       map,
-      title: "",
-      animation: google.maps.Animation.DROP,
-      optimized: true,
-      visible: true,
-      clickable: true,
+      content: priceTag,
+    })
+
+    const startPoint = new google.maps.LatLng(-7.077195, -41.489608) // Latitude e longitude do ponto de partida
+    const endPoint = new google.maps.LatLng(lat, lng) // Latitude e longitude do destino
+
+    const route = {
+      origin: startPoint,
+      destination: endPoint,
+      travelMode: "DRIVING",
+    }
+
+    let directionsService = new google.maps.DirectionsService()
+    let directionsRenderer = new google.maps.DirectionsRenderer()
+
+    directionsService.route(route, function (response, status) {
+      // anonymous function to capture directions
+      if (status !== "OK") {
+        window.alert("Directions request failed due to " + status)
+        return
+      } else {
+        directionsRenderer.setDirections(response) // Add route to the map
+        var directionsData = response.routes[0].legs[0].distance?.text // Get data about the mapped route
+
+        priceTag.textContent = directionsData
+
+        if (!directionsData) {
+          window.alert("Directions request failed")
+          return
+        }
+      }
+    })
+
+    const request = {
+      origin: startPoint,
+      destination: endPoint,
+      travelMode: google.maps.TravelMode.DRIVING, // Modo de viagem (DRIVING, WALKING, BICYCLING, ou TRANSIT)
+    }
+
+    directionsService.route(request, function (result, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        const route = result.routes[0]
+        const polyline = new google.maps.Polyline({
+          path: route.overview_path, // Define os pontos da rota
+          geodesic: true, // Define se a polyline segue a curvatura da Terra
+          strokeColor: "#FF0000", // Cor da linha
+          strokeOpacity: 1.0, // Opacidade da linha
+          strokeWeight: 2, // Espessura da linha
+        })
+
+        polyline.setMap(map) // Adiciona a polyline ao mapa
+      }
     })
 
     map?.addListener("drag", () => {
@@ -162,7 +184,7 @@ export const addSingleMarkers = ({
     })
 
     marker.addListener("click", () => {
-      infoWindow.open(marker.getMap(), marker)
+      infoWindow.open(marker.map, marker)
 
       infoWindow.open({
         anchor: marker,
